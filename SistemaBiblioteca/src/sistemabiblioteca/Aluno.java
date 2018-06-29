@@ -1,7 +1,7 @@
-
 package sistemabiblioteca;
 
 public class Aluno extends Usuario {
+
     protected String curso;
     protected int ano;
 
@@ -25,5 +25,13 @@ public class Aluno extends Usuario {
 
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    @Override
+    public String toString() {
+        return "\nCodigo de Usuario: " + super.getCodUsuario()
+                + "\nNome: " + super.getNome()
+                + "\nDias de Empréstimo: " + super.getDiasEmprestimo()
+                + "\nCurso:" + this.curso + " " + this.ano + "º ano\n\n";
     }
 }

@@ -17,6 +17,10 @@ public class Emprestimo {
         this.codUsuario = codUsuario;
     }
     
+    public void addItem(Item e){
+        this.itens.add(e);
+    }
+    
     public String getCodEmprestimo() {
         return codEmprestimo;
     }

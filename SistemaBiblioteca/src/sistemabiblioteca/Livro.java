@@ -45,5 +45,10 @@ public class Livro {
         this.imprestado = imprestado;
     }
     
+    @Override
+    public String toString(){
+        return "Código do Livro: " + this.codLivro + "\nNome: " + this.nome + "\nAno: " + this.ano;
+    }
+    
     
 }
