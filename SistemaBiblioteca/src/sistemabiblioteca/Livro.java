@@ -5,7 +5,7 @@ public class Livro {
     private String codLivro;
     private String nome;
     private int ano;
-    private boolean imprestado;
+    private boolean emprestado;
 
     public Livro(String codLivro, String nome, int ano) {
         this.codLivro = codLivro;
@@ -37,12 +37,12 @@ public class Livro {
         this.ano = ano;
     }
 
-    public boolean isImprestado() {
-        return imprestado;
+    public boolean isEmprestado() {
+        return emprestado;
     }
 
-    public void setImprestado(boolean imprestado) {
-        this.imprestado = imprestado;
+    public void setEmprestado(boolean emprestado) {
+        this.emprestado = emprestado;
     }
     
     @Override

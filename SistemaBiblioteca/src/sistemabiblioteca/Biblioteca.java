@@ -19,12 +19,20 @@ public class Biblioteca {
     private ArrayList<Usuario> usuarios;
     private ArrayList<Emprestimo> emprestimos;
     private ArrayList<Livro> livros;
+    String local = "C:\\Users\\JohnnyBaptista\\Desktop\\Sistem biblio\\SistemaBiblioteca\\SistemaBiblioteca\\src\\arquivos";
 
     public Biblioteca() {
         this.usuarios = new ArrayList<Usuario>();
         this.emprestimos = new ArrayList<Emprestimo>();
         this.livros = new ArrayList<Livro>();
         this.configuracoes = new Config();
+        try {
+            this.loadUsuarios();
+            this.loadLivros();
+            JOptionPane.showMessageDialog(null, "Arquivos carregados automaticamente com sucesso!");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Houve um erro ao abrir o arquivo: " + ex.getMessage());
+        }
     }
 
     public void loadUsuarios() throws FileNotFoundException, IOException {
@@ -35,7 +43,7 @@ public class Biblioteca {
 //        }
 //        File file = chooser.getSelectedFile();
 
-        FileReader arq = new FileReader("C:\\Users\\JohnnyBaptista\\Desktop\\usuarios.txt");
+        FileReader arq = new FileReader(local+"\\usuarios.txt");
         BufferedReader leitor = new BufferedReader(arq);
 
         while (true) {
@@ -68,7 +76,7 @@ public class Biblioteca {
 //        }
 //        File file = chooser.getSelectedFile();
 
-        FileReader arq = new FileReader("C:\\Users\\JohnnyBaptista\\Desktop\\livros.txt");
+        FileReader arq = new FileReader(local+"\\livros.txt");
         BufferedReader leitor = new BufferedReader(arq);
         while (true) {
             int ano;
@@ -134,10 +142,12 @@ public class Biblioteca {
     }
 
     public void salvarLivros() throws IOException { //JP
-        FileWriter arq = new FileWriter("C:\\Users\\JohnnyBaptista\\Desktop\\livros.txt");
-        PrintWriter gravaArq = new PrintWriter(arq);
+        FileWriter arq = new FileWriter(local+"\\livros.txt");
+        
         for(Livro l: livros){
-            gravaArq.print(l);
+            arq.write(l.getCodLivro() + System.getProperty("line.separator"));
+            arq.write(l.getAno() + System.getProperty("line.separator"));
+            arq.write(l.getNome() + System.getProperty("line.separator"));
         }
     }
 
@@ -154,37 +164,37 @@ public class Biblioteca {
     }
     
     public void salvarUsuarios() throws IOException{ //JP
-        FileWriter arq = new FileWriter("C:\\Users\\JohnnyBaptista\\Desktop\\usuarios.txt");
-        PrintWriter gravaArq = new PrintWriter(arq);
+        FileWriter arq = new FileWriter(local+"\\usuarios.txt");
+        
         for(Usuario u: usuarios){
-            //String codUser = u.getCodUsuario();
-            //String nome = u.getNome();
-            //int dias = u.getDiasEmprestimo();
             if(u instanceof Aluno){
-                gravaArq.append("0\n");
-                gravaArq.append(((Aluno) u).toString());
-                //gravaArq.append(((Aluno) u).codUsuario+"\n");
-                //gravaArq.append( ((Aluno) u).nome+"\n");
-                //gravaArq.append(((Aluno) u).diasEmprestimo+"\n");
-                //gravaArq.append(((Aluno) u).getCurso()+"\n");
-                //gravaArq.append(((Aluno) u).ano+"\n");
+                arq.write("0" + System.getProperty("line.separator"));
+            }else{
+                arq.write("1" + System.getProperty("line.separator"));
             }
-            if(u instanceof Professor){
-                gravaArq.append("1");
-                gravaArq.append(((Professor) u).codUsuario+"\n");
-                gravaArq.append(((Professor) u).nome+"\n");
-                gravaArq.append(((Professor) u).diasEmprestimo+"\n");
-                gravaArq.append(((Professor) u).titulacao+"\n");
+            arq.write(u.getCodUsuario() + System.getProperty("line.separator"));
+            arq.write(u.getNome()+ System.getProperty("line.separator"));
+            arq.write(u.getDiasEmprestimo()+ System.getProperty("line.separator"));
+            if (u instanceof Aluno) {
+                arq.write(((Aluno) u).getCurso()+ System.getProperty("line.separator"));
+                arq.write(((Aluno) u).getAno()+ System.getProperty("line.separator"));
+            }else{
+                arq.write(((Professor) u).getTitulacao() + System.getProperty("line.separator"));
             }
         }
-        gravaArq.close();
+        arq.close();
     }
     
     public void salvarEmprestimos() throws IOException{ //JP
-        FileWriter arq = new FileWriter("C:\\Users\\JohnnyBaptista\\Desktop\\emprestimos.txt");
-        PrintWriter gravaArq = new PrintWriter(arq);
+        FileWriter arq = new FileWriter(local+"\\emprestimos.txt");
         for(Emprestimo e: emprestimos){
-            gravaArq.print(e);
+            arq.write(e.getCodEmprestimo() + System.getProperty("line.separator"));
+            arq.write(e.getCodUsuario() +System.getProperty("line.separator"));
+            arq.write(e.getDataEmprestimo() +System.getProperty("line.separator"));
+            for(Item i: e.getItens()){
+                arq.write(i.getCodLivro()+ System.getProperty("line.separator"));      
+                arq.write(i.getDataDevolução()+ System.getProperty("line.separator"));
+            }
         }
     }
 
