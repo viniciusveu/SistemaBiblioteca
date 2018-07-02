@@ -218,7 +218,7 @@ public class UI_Emprestar extends javax.swing.JInternalFrame {
         
         for (int i = 0; i < listaSelecionados.getSize(); i++) {
             Livro auxLivro = (Livro) listaSelecionados.get(i);
-            auxLivro.setImprestado(true);
+            auxLivro.setEmprestado(true);
             
             Item itemAux = new Item(Integer.toString(codEmprestimo), auxLivro.getCodLivro());
             

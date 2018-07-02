@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistemabiblioteca.Biblioteca;
-import sistemabiblioteca.Item;
 
 /**
  *
@@ -52,7 +51,6 @@ public class UI_Main extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -123,6 +121,11 @@ public class UI_Main extends javax.swing.JFrame {
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/plus.png"))); // NOI18N
         jButton7.setText("Novo");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout subMenuLivroLayout = new javax.swing.GroupLayout(subMenuLivro);
         subMenuLivro.setLayout(subMenuLivroLayout);
@@ -174,14 +177,6 @@ public class UI_Main extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Arquivo");
-
-        jMenuItem1.setText("Carregar Dados");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Salvar Dados");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -236,15 +231,6 @@ public class UI_Main extends javax.swing.JFrame {
         jDesktopPane1.add(window);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        try {
-            b.loadUsuarios();
-            b.loadLivros();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Houve um erro ao abrir o arquivo: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         UI_MostrarLivro window = new UI_MostrarLivro(b);
         window.setVisible(true);
@@ -260,13 +246,20 @@ public class UI_Main extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         try {//jp
             // Salvar dados
-            // b.salvarLivros();
+            b.salvarLivros();
             b.salvarUsuarios();
-            //b.salvarEmprestimos();
+            b.salvarEmprestimos();
         } catch (IOException ex) {
             Logger.getLogger(UI_Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        UI_CadastroLivro window = new UI_CadastroLivro(b);
+        window.setVisible(true);
+        jDesktopPane1.add(window);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,7 +308,6 @@ public class UI_Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel subMenuLivro;
