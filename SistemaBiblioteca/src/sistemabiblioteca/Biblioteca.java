@@ -1,10 +1,13 @@
+
 package sistemabiblioteca;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javafx.stage.FileChooser;
 import javax.swing.JFileChooser;
@@ -32,7 +35,7 @@ public class Biblioteca {
 //        }
 //        File file = chooser.getSelectedFile();
 
-        FileReader arq = new FileReader("/home/vedovotto/Documentos/usuarios.txt");
+        FileReader arq = new FileReader("C:\\Users\\JohnnyBaptista\\Desktop\\usuarios.txt");
         BufferedReader leitor = new BufferedReader(arq);
 
         while (true) {
@@ -65,9 +68,8 @@ public class Biblioteca {
 //        }
 //        File file = chooser.getSelectedFile();
 
-        FileReader arq = new FileReader("/home/vedovotto/Documentos/livros.txt");
+        FileReader arq = new FileReader("C:\\Users\\JohnnyBaptista\\Desktop\\livros.txt");
         BufferedReader leitor = new BufferedReader(arq);
-
         while (true) {
             int ano;
             String nome, str_ano, codLivro;
@@ -131,12 +133,16 @@ public class Biblioteca {
         this.livros = livros;
     }
 
-    public void salvarLivros() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void salvarLivros() throws IOException { //JP
+        FileWriter arq = new FileWriter("C:\\Users\\JohnnyBaptista\\Desktop\\livros.txt");
+        PrintWriter gravaArq = new PrintWriter(arq);
+        for(Livro l: livros){
+            gravaArq.print(l);
+        }
     }
 
     public void recuperarLivros() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     public String listarUsuarios() {
@@ -145,6 +151,41 @@ public class Biblioteca {
             lista += usuarios.get(i).toString() + "\n";
         }
         return lista;
+    }
+    
+    public void salvarUsuarios() throws IOException{ //JP
+        FileWriter arq = new FileWriter("C:\\Users\\JohnnyBaptista\\Desktop\\usuarios.txt");
+        PrintWriter gravaArq = new PrintWriter(arq);
+        for(Usuario u: usuarios){
+            //String codUser = u.getCodUsuario();
+            //String nome = u.getNome();
+            //int dias = u.getDiasEmprestimo();
+            if(u instanceof Aluno){
+                gravaArq.append("0\n");
+                gravaArq.append(((Aluno) u).toString());
+                //gravaArq.append(((Aluno) u).codUsuario+"\n");
+                //gravaArq.append( ((Aluno) u).nome+"\n");
+                //gravaArq.append(((Aluno) u).diasEmprestimo+"\n");
+                //gravaArq.append(((Aluno) u).getCurso()+"\n");
+                //gravaArq.append(((Aluno) u).ano+"\n");
+            }
+            if(u instanceof Professor){
+                gravaArq.append("1");
+                gravaArq.append(((Professor) u).codUsuario+"\n");
+                gravaArq.append(((Professor) u).nome+"\n");
+                gravaArq.append(((Professor) u).diasEmprestimo+"\n");
+                gravaArq.append(((Professor) u).titulacao+"\n");
+            }
+        }
+        gravaArq.close();
+    }
+    
+    public void salvarEmprestimos() throws IOException{ //JP
+        FileWriter arq = new FileWriter("C:\\Users\\JohnnyBaptista\\Desktop\\emprestimos.txt");
+        PrintWriter gravaArq = new PrintWriter(arq);
+        for(Emprestimo e: emprestimos){
+            gravaArq.print(e);
+        }
     }
 
     public String listarAlunos() {

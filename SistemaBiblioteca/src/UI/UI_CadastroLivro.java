@@ -6,6 +6,7 @@
 package UI;
 
 import sistemabiblioteca.Biblioteca;
+import sistemabiblioteca.Item;
 
 
 /**
@@ -114,6 +115,7 @@ public class UI_CadastroLivro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void txtCodLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodLivroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodLivroActionPerformed
@@ -124,10 +126,10 @@ public class UI_CadastroLivro extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Item it = new Item();
         String nome = txtNome.getText();    
         String codLivro = txtCodLivro.getText();
         int ano = Integer.parseInt(txtAno.getText());
-        
         b.addLivro(codLivro, nome, ano);
     }//GEN-LAST:event_jButton1ActionPerformed
 
