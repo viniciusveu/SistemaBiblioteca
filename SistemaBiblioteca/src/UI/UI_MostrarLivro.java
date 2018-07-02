@@ -19,6 +19,7 @@ public class UI_MostrarLivro extends javax.swing.JInternalFrame {
     public UI_MostrarLivro(Biblioteca b) {
         initComponents();
         this.b = b;
+        txtRelatorio.setText(b.listarLivros());
     }
 
     /**
@@ -35,6 +36,7 @@ public class UI_MostrarLivro extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtRelatorio = new javax.swing.JTextArea();
 
+        setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Relatório Livros");

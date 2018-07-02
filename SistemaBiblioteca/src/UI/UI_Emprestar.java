@@ -26,6 +26,7 @@ public class UI_Emprestar extends javax.swing.JInternalFrame {
     private DefaultListModel lista = new DefaultListModel();
     private DefaultListModel listaSelecionados = new DefaultListModel();
     private DefaultTableModel model;
+    private static int codEmprestimo;
     Biblioteca b;
 
 
@@ -123,7 +124,7 @@ public class UI_Emprestar extends javax.swing.JInternalFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -138,7 +139,7 @@ public class UI_Emprestar extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Finalizar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -187,9 +188,8 @@ public class UI_Emprestar extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jButton3))
         );
 
         pack();
@@ -209,19 +209,18 @@ public class UI_Emprestar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        codEmprestimo++;
         int selecionadoNaTable = jTable1.getSelectedRow();
-        
         String codUsuarioSelecionado = (String) model.getValueAt(selecionadoNaTable, 0);
-        Emprestimo e = new Emprestimo("PEGAR DO INPUT", codUsuarioSelecionado);
+        Emprestimo e = new Emprestimo(Integer.toString(codEmprestimo), codUsuarioSelecionado);
         
         ArrayList<String> livros = new ArrayList();
         
         for (int i = 0; i < listaSelecionados.getSize(); i++) {
             Livro auxLivro = (Livro) listaSelecionados.get(i);
-            
             auxLivro.setImprestado(true);
             
-            Item itemAux = new Item("PEGAR DO INPUT", auxLivro.getCodLivro());
+            Item itemAux = new Item(Integer.toString(codEmprestimo), auxLivro.getCodLivro());
             
             e.addItem(itemAux);
         }
